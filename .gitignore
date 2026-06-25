@@ -1,0 +1,47 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files.
+.env*
+!.env.example
+
+# Ignore application configuration
+/config/database.yml
+/config/master.key
+/config/credentials/*.key
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any non-supported backends).
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# Ignore assets that are precompiled.
+/public/assets
+
+# Ignore node_modules.
+/node_modules
+
+# Ignore capistrano temporary files.
+/tmp/deploy*
+
+# Ignore yarn files.
+yarn-error.log
+
+# Ignore test directory (no tests planned for MVP).
+/test/
+
+# Ignore mac OS X files.
+.DS_Store
