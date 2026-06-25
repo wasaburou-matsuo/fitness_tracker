@@ -6,7 +6,6 @@
 !.env.example
 
 # Ignore application configuration
-/config/database.yml
 /config/master.key
 /config/credentials/*.key
 
