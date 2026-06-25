@@ -1,0 +1,25 @@
+<h1>マシンを登録</h1>
+
+<%= form_with model: [@gym, @machine] do |f| %>
+  <% if @machine.errors.any? %>
+    <ul>
+      <% @machine.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "マシン名" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :setting_memo, "マシン設定メモ" %>
+    <%= f.text_area :setting_memo %>
+  </div>
+
+  <%= f.submit "登録する" %>
+<% end %>
+
+<%= link_to "戻る", root_path %>
