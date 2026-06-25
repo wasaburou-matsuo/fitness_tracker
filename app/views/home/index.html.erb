@@ -1,2 +1,26 @@
 <h1>FITNESS TRACKER</h1>
-<p>筋トレ記録アプリ</p>
+
+<%= form_with url: root_path, method: :get do |f| %>
+  <div>
+    <%= f.label :date, "日付" %>
+    <%= f.date_field :date, value: @selected_date %>
+  </div>
+
+  <% if @gyms.any? %>
+    <div>
+      <%= f.label :gym_id, "ジム" %>
+      <%= f.select :gym_id,
+            @gyms.map { |g| [g.name, g.id] },
+            { include_blank: "選択してください" },
+            selected: @selected_gym_id %>
+    </div>
+    <%= f.submit "選択する" %>
+  <% else %>
+    <p>ジムが登録されていません。</p>
+    <%= link_to "ジムを登録する", new_gym_path %>
+  <% end %>
+<% end %>
+
+<% if @selected_gym %>
+  <p>選択中：<%= @selected_gym.name %>（<%= @selected_date %>）</p>
+<% end %>
