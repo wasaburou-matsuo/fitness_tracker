@@ -1,0 +1,21 @@
+<h1>記録一覧</h1>
+
+<% if @training_sessions.any? %>
+  <ul>
+    <% @training_sessions.each do |session| %>
+      <li>
+        <strong><%= session.trained_on %></strong>
+        <%= session.exercise.name %>
+        <% if session.machine %>
+          （<%= session.machine.name %>）
+        <% end %>
+        <%= link_to "詳細", training_session_path(session) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>記録がありません。</p>
+<% end %>
+
+<%= link_to "トレーニングを記録する", new_training_session_path %>
+<%= link_to "戻る", root_path %>

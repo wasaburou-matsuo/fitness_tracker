@@ -1,4 +1,16 @@
 class TrainingSessionsController < ApplicationController
+  def index
+    @training_sessions = current_user.training_sessions
+                                     .includes(:exercise, :machine, :training_sets)
+                                     .order(trained_on: :desc)
+  end
+
+  def show
+    @training_session = current_user.training_sessions
+                                    .includes(:exercise, :machine, :training_sets)
+                                    .find(params[:id])
+  end
+
   def new
     @training_session = current_user.training_sessions.build
     @training_session.trained_on = session[:selected_date] || Date.today
