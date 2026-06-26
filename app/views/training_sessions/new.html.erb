@@ -34,15 +34,20 @@
   </div>
 
   <h2>セット</h2>
-  <%= f.fields_for :training_sets do |set_f| %>
-    <div>
-      <%= set_f.hidden_field :set_number, value: 1 %>
-      <%= set_f.label :weight, "重量 (kg)" %>
-      <%= set_f.number_field :weight, step: 0.5, min: 0 %>
-      <%= set_f.label :reps, "回数" %>
-      <%= set_f.number_field :reps, min: 1 %>
+  <div data-controller="training-set">
+    <div data-training-set-target="container">
+      <%= f.fields_for :training_sets do |set_f| %>
+        <div class="set-row">
+          <span>セット1</span>
+          <%= set_f.hidden_field :set_number, value: 1, data: { set_number: true } %>
+          <%= set_f.number_field :weight, step: 0.5, min: 0, placeholder: "重量 (kg)" %>
+          <%= set_f.number_field :reps, min: 1, placeholder: "回数" %>
+          <button type="button" data-action="click->training-set#removeSet">削除</button>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+    <button type="button" data-action="click->training-set#addSet">+ セットを追加</button>
+  </div>
 
   <%= f.submit "記録する" %>
 <% end %>
