@@ -38,8 +38,8 @@
     <div data-training-set-target="container">
       <%= f.fields_for :training_sets do |set_f| %>
         <div class="set-row">
-          <span>セット1</span>
-          <%= set_f.hidden_field :set_number, value: 1, data: { set_number: true } %>
+          <span>セット<%= set_f.object.set_number %></span>
+          <%= set_f.hidden_field :set_number, data: { set_number: true } %>
           <%= set_f.number_field :weight, step: 0.5, min: 0, placeholder: "重量 (kg)" %>
           <%= set_f.number_field :reps, min: 1, placeholder: "回数" %>
           <button type="button" data-action="click->training-set#removeSet">削除</button>
