@@ -13,8 +13,8 @@ export default class extends Controller {
       <div class="set-row">
         <span>セット${setNumber}</span>
         <input type="hidden" name="training_session[training_sets_attributes][${this.index}][set_number]" value="${setNumber}" data-set-number>
-        <input type="number" name="training_session[training_sets_attributes][${this.index}][weight]" step="0.5" min="0" placeholder="重量 (kg)" required>
-        <input type="number" name="training_session[training_sets_attributes][${this.index}][reps]" min="1" placeholder="回数" required>
+        <input type="number" name="training_session[training_sets_attributes][${this.index}][weight]" step="0.5" min="0" placeholder="重量 (kg)">
+        <input type="number" name="training_session[training_sets_attributes][${this.index}][reps]" min="1" placeholder="回数">
         <button type="button" data-action="click->training-set#removeSet">削除</button>
       </div>
     `
