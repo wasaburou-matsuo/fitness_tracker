@@ -14,7 +14,7 @@ class TrainingSessionsController < ApplicationController
   def new
     @training_session = current_user.training_sessions.build
     @training_session.trained_on = session[:selected_date] || Date.today
-    @training_session.training_sets.build
+    @training_session.training_sets.build(set_number: 1)
     setup_form_options
   end
 
