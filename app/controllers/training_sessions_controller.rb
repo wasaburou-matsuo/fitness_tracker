@@ -15,7 +15,7 @@ class TrainingSessionsController < ApplicationController
     @training_session = current_user.training_sessions.build
     @training_session.trained_on = session[:selected_date] || Date.today
     @training_session.training_sets.build(set_number: 1)
-    setup_form_options
+    load_session_selections
   end
 
   def create
@@ -23,21 +23,22 @@ class TrainingSessionsController < ApplicationController
     if @training_session.save
       redirect_to root_path, notice: "トレーニングを記録しました"
     else
-      setup_form_options
+      load_session_selections
       render :new, status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotUnique
     @training_session.errors.add(:base, :duplicate_training_session)
-    setup_form_options
+    load_session_selections
     render :new, status: :unprocessable_entity
   end
 
   private
 
-  def setup_form_options
-    @exercises = current_user.exercises.order(:name)
+  def load_session_selections
+    @exercise = current_user.exercises.find_by(id: session[:selected_exercise_id])
     @gym = current_user.gyms.find_by(id: session[:selected_gym_id])
-    @machines = @gym ? @gym.machines : Machine.none
+    @machine = session[:selected_machine_id].present? ? @gym&.machines&.find_by(id: session[:selected_machine_id]) : nil
+    @selected_date = session[:selected_date] || Date.today.to_s
   end
 
   def training_session_params

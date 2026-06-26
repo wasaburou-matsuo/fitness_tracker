@@ -16,8 +16,8 @@
           <span class="home-chip__label">ジム</span>
           <%= f.select :gym_id,
                 @gyms.map { |g| [g.name, g.id] },
-                { include_blank: "選択してください" },
-                { selected: @selected_gym_id, class: "home-chip__select", onchange: "this.form.submit()" } %>
+                { include_blank: "選択してください", selected: @selected_gym_id },
+                { class: "home-chip__select", onchange: "this.form.submit()" } %>
         </label>
       <% else %>
         <span class="home-chip home-chip--empty">

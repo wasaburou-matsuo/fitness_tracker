@@ -1,55 +1,70 @@
-<h1>トレーニングを記録</h1>
+<div class="card">
+  <div class="training-header">
+    <%= link_to "戻る", @gym ? gym_machines_path(@gym) : exercises_path, class: "back-link" %>
+    <% if @gym %>
+      <span class="training-header__meta"><%= l(Date.parse(@selected_date), format: :long) %>・<%= @gym.name %></span>
+    <% end %>
+  </div>
 
-<%= form_with model: @training_session do |f| %>
   <% if @training_session.errors.any? %>
-    <ul>
-      <% @training_session.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div class="flash flash--alert">
+      <ul class="error-list">
+        <% @training_session.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <div>
-    <%= f.label :trained_on, "日付" %>
-    <%= f.date_field :trained_on %>
-  </div>
-
-  <div>
-    <%= f.label :exercise_id, "種目" %>
-    <%= f.select :exercise_id,
-          @exercises.map { |e| [e.name, e.id] },
-          { include_blank: "選択してください" } %>
-  </div>
-
-  <div>
-    <%= f.label :machine_id, "マシン（任意）" %>
-    <%= f.select :machine_id,
-          @machines.map { |m| [m.name, m.id] },
-          { include_blank: "なし（自重など）" } %>
-  </div>
-
-  <div>
-    <%= f.label :memo, "メモ（任意）" %>
-    <%= f.text_area :memo %>
-  </div>
-
-  <h2>セット</h2>
-  <div data-controller="training-set">
-    <div data-training-set-target="container">
-      <%= f.fields_for :training_sets do |set_f| %>
-        <div class="set-row">
-          <span>セット<%= set_f.object.set_number %></span>
-          <%= set_f.hidden_field :set_number, data: { set_number: true } %>
-          <%= set_f.number_field :weight, step: 0.5, min: 0, placeholder: "重量 (kg)" %>
-          <%= set_f.number_field :reps, min: 1, placeholder: "回数" %>
-          <button type="button" data-action="click->training-set#removeSet">削除</button>
-        </div>
-      <% end %>
+  <div class="training-selection">
+    <div class="training-selection__item">
+      <span class="training-selection__label">種目</span>
+      <span class="training-selection__value"><%= @exercise&.name || "未選択" %></span>
     </div>
-    <button type="button" data-action="click->training-set#addSet">+ セットを追加</button>
+    <% if @machine %>
+      <div class="training-selection__item">
+        <span class="training-selection__label">マシン</span>
+        <span class="training-selection__value"><%= @machine.name %></span>
+      </div>
+    <% end %>
   </div>
 
-  <%= f.submit "記録する" %>
-<% end %>
+  <% if @machine&.setting_memo.present? %>
+    <div class="machine-memo">
+      <span class="machine-memo__icon">⚠</span>
+      マシン設定メモ（読み取り専用）<br>
+      <span class="machine-memo__text"><%= @machine.setting_memo %></span>
+    </div>
+  <% end %>
 
-<%= link_to "戻る", root_path %>
+  <%= form_with model: @training_session do |f| %>
+    <%= f.hidden_field :exercise_id, value: @exercise&.id %>
+    <%= f.hidden_field :machine_id, value: @machine&.id %>
+    <%= f.hidden_field :trained_on, value: @selected_date %>
+
+    <div class="form-group">
+      <%= f.label :memo, "メモ（今日の気づき）" %>
+      <%= f.text_area :memo, placeholder: "例: フォームを意識したら効きが良かった" %>
+    </div>
+
+    <h2 class="section-title">セット記録</h2>
+    <div data-controller="training-set">
+      <div data-training-set-target="container">
+        <%= f.fields_for :training_sets do |set_f| %>
+          <div class="set-row">
+            <span class="set-row__label">セット<%= set_f.object.set_number %></span>
+            <%= set_f.hidden_field :set_number, data: { set_number: true } %>
+            <%= set_f.number_field :weight, step: 0.5, min: 0, placeholder: "重量 (kg)", class: "set-row__input" %>
+            <%= set_f.number_field :reps, min: 1, placeholder: "回数", class: "set-row__input" %>
+            <button type="button" class="set-row__remove" data-action="click->training-set#removeSet">削除</button>
+          </div>
+        <% end %>
+      </div>
+      <button type="button" class="btn-add" data-action="click->training-set#addSet">+ セットを追加</button>
+    </div>
+
+    <div class="form-submit">
+      <%= f.submit "保存する", class: "btn-primary btn-block" %>
+    </div>
+  <% end %>
+</div>

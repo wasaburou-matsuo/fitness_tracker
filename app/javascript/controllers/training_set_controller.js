@@ -11,11 +11,11 @@ export default class extends Controller {
     const setNumber = this.containerTarget.querySelectorAll(".set-row").length + 1
     const html = `
       <div class="set-row">
-        <span>セット${setNumber}</span>
+        <span class="set-row__label">セット${setNumber}</span>
         <input type="hidden" name="training_session[training_sets_attributes][${this.index}][set_number]" value="${setNumber}" data-set-number>
-        <input type="number" name="training_session[training_sets_attributes][${this.index}][weight]" step="0.5" min="0" placeholder="重量 (kg)">
-        <input type="number" name="training_session[training_sets_attributes][${this.index}][reps]" min="1" placeholder="回数">
-        <button type="button" data-action="click->training-set#removeSet">削除</button>
+        <input type="number" class="set-row__input" name="training_session[training_sets_attributes][${this.index}][weight]" step="0.5" min="0" placeholder="重量 (kg)">
+        <input type="number" class="set-row__input" name="training_session[training_sets_attributes][${this.index}][reps]" min="1" placeholder="回数">
+        <button type="button" class="set-row__remove" data-action="click->training-set#removeSet">削除</button>
       </div>
     `
     this.containerTarget.insertAdjacentHTML("beforeend", html)
@@ -32,7 +32,7 @@ export default class extends Controller {
 
   renumber() {
     this.containerTarget.querySelectorAll(".set-row").forEach((row, i) => {
-      row.querySelector("span").textContent = `セット${i + 1}`
+      row.querySelector(".set-row__label").textContent = `セット${i + 1}`
       row.querySelector("[data-set-number]").value = i + 1
     })
   }
