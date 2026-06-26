@@ -1,0 +1,50 @@
+<h1>トレーニングを記録</h1>
+
+<%= form_with model: @training_session do |f| %>
+  <% if @training_session.errors.any? %>
+    <ul>
+      <% @training_session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :trained_on, "日付" %>
+    <%= f.date_field :trained_on %>
+  </div>
+
+  <div>
+    <%= f.label :exercise_id, "種目" %>
+    <%= f.select :exercise_id,
+          @exercises.map { |e| [e.name, e.id] },
+          { include_blank: "選択してください" } %>
+  </div>
+
+  <div>
+    <%= f.label :machine_id, "マシン（任意）" %>
+    <%= f.select :machine_id,
+          @machines.map { |m| [m.name, m.id] },
+          { include_blank: "なし（自重など）" } %>
+  </div>
+
+  <div>
+    <%= f.label :memo, "メモ（任意）" %>
+    <%= f.text_area :memo %>
+  </div>
+
+  <h2>セット</h2>
+  <%= f.fields_for :training_sets do |set_f| %>
+    <div>
+      <%= set_f.hidden_field :set_number, value: 1 %>
+      <%= set_f.label :weight, "重量 (kg)" %>
+      <%= set_f.number_field :weight, step: 0.5, min: 0 %>
+      <%= set_f.label :reps, "回数" %>
+      <%= set_f.number_field :reps, min: 1 %>
+    </div>
+  <% end %>
+
+  <%= f.submit "記録する" %>
+<% end %>
+
+<%= link_to "戻る", root_path %>
