@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :exercises, only: [:index, :new, :create]
-  resources :training_sessions, only: [:new, :create]
+  resources :training_sessions, only: [:index, :new, :create, :show]
   resources :gyms, only: [:new, :create] do
     resources :machines, only: [:index, :new, :create]
   end

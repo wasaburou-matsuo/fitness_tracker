@@ -1,0 +1,22 @@
+<h1>記録詳細</h1>
+
+<p><strong>日付：</strong><%= @training_session.trained_on %></p>
+<p><strong>種目：</strong><%= @training_session.exercise.name %></p>
+<% if @training_session.machine %>
+  <p><strong>マシン：</strong><%= @training_session.machine.name %></p>
+  <% if @training_session.machine.setting_memo.present? %>
+    <p><strong>マシン設定メモ：</strong><%= @training_session.machine.setting_memo %></p>
+  <% end %>
+<% end %>
+<% if @training_session.memo.present? %>
+  <p><strong>メモ：</strong><%= @training_session.memo %></p>
+<% end %>
+
+<h2>セット</h2>
+<ul>
+  <% @training_session.training_sets.order(:set_number).each do |set| %>
+    <li>セット<%= set.set_number %>：<%= set.weight %>kg × <%= set.reps %>回</li>
+  <% end %>
+</ul>
+
+<%= link_to "一覧に戻る", training_sessions_path %>
