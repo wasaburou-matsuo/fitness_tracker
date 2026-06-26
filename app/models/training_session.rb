@@ -15,6 +15,6 @@ class TrainingSession < ApplicationRecord
     scope = self.class.where(user_id: user_id, exercise_id: exercise_id, trained_on: trained_on)
     scope = machine_id ? scope.where(machine_id: machine_id) : scope.where(machine_id: nil)
     scope = scope.where.not(id: id) if persisted?
-    errors.add(:base, "同じ日付・種目・マシンの組み合わせはすでに記録されています") if scope.exists?
+    errors.add(:base, :duplicate_training_session) if scope.exists?
   end
 end

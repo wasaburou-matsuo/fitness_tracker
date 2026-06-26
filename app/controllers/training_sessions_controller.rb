@@ -27,7 +27,7 @@ class TrainingSessionsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotUnique
-    @training_session.errors.add(:base, "同じ日付・種目・マシンの組み合わせはすでに記録されています")
+    @training_session.errors.add(:base, :duplicate_training_session)
     setup_form_options
     render :new, status: :unprocessable_entity
   end

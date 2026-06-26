@@ -1,0 +1,31 @@
+ja:
+  hello: "こんにちは"
+  activerecord:
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        current_password: "現在のパスワード"
+        remember_me: "ログイン状態を保持する"
+      gym:
+        name: "ジム名"
+      machine:
+        name: "マシン名"
+        setting_memo: "マシン設定メモ"
+      exercise:
+        name: "種目名"
+        body_part: "部位"
+      training_session:
+        exercise_id: "種目"
+        machine_id: "マシン"
+        trained_on: "日付"
+        memo: "メモ"
+      training_set:
+        set_number: "セット番号"
+        weight: "重量"
+        reps: "回数"
+  errors:
+    messages:
+      duplicate_training_session: "同じ日付・種目・マシンの組み合わせはすでに記録されています"
