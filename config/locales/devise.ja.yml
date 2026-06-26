@@ -1,0 +1,52 @@
+ja:
+  devise:
+    confirmations:
+      confirmed: "メールアドレスが確認されました。"
+      send_instructions: "メールアドレスの確認方法を数分以内にメールでお送りします。"
+      send_paranoid_instructions: "メールアドレスがデータベースに存在する場合、確認方法をメールでお送りします。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      inactive: "アカウントが有効化されていません。"
+      invalid: "%{authentication_keys}またはパスワードが違います。"
+      locked: "アカウントがロックされています。"
+      last_attempt: "もう一度失敗するとアカウントがロックされます。"
+      not_found_in_database: "%{authentication_keys}またはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      unauthenticated: "ログインもしくはアカウント登録してください。"
+      unconfirmed: "メールアドレスの確認が必要です。"
+    omniauth_callbacks:
+      failure: "%{kind}アカウントによる認証に失敗しました（理由：%{reason}）。"
+      success: "%{kind}アカウントによる認証に成功しました。"
+    passwords:
+      no_token: "パスワードリセット用メールからアクセスしてください。"
+      send_instructions: "パスワードの再設定方法を数分以内にメールでお送りします。"
+      send_paranoid_instructions: "メールアドレスが登録済みの場合、パスワード再設定のリンクをメールでお送りします。"
+      updated: "パスワードが変更されました。"
+      updated_not_active: "パスワードが変更されました。"
+    registrations:
+      destroyed: "アカウントを削除しました。またのご利用をお待ちしております。"
+      signed_up: "アカウント登録が完了しました。"
+      signed_up_but_inactive: "登録が完了しましたが、アカウントが有効化されていないためログインできません。"
+      signed_up_but_locked: "登録が完了しましたが、アカウントがロックされているためログインできません。"
+      signed_up_but_unconfirmed: "確認メールを送信しました。メール内のリンクからアカウントを有効化してください。"
+      update_needs_confirmation: "アカウント情報を更新しました。新しいメールアドレスの確認が必要です。"
+      updated: "アカウント情報を更新しました。"
+      updated_but_not_signed_in: "アカウント情報を更新しました。パスワードが変更されたため、再度ログインしてください。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "ログアウトしました。"
+    unlocks:
+      send_instructions: "アカウントのロック解除方法を数分以内にメールでお送りします。"
+      send_paranoid_instructions: "アカウントが存在する場合、ロック解除方法をメールでお送りします。"
+      unlocked: "アカウントのロックを解除しました。"
+  errors:
+    messages:
+      already_confirmed: "はすでに確認済みです。ログインしてください。"
+      confirmation_period_expired: "の確認期限が切れました。%{period}以内に確認してください。"
+      expired: "の有効期限が切れました。再度お試しください。"
+      not_found: "が見つかりません。"
+      not_locked: "はロックされていません。"
+      not_saved:
+        one: "エラーが1件あったため%{resource}を保存できませんでした："
+        other: "%{count}件のエラーがあったため%{resource}を保存できませんでした："
