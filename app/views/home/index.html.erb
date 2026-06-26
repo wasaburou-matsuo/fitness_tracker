@@ -1,31 +1,63 @@
-<h1>FITNESS TRACKER</h1>
+<div class="card">
+  <p class="greeting-sub">こんにちは</p>
+  <h1 class="greeting-name"><%= current_user.name %>さん</h1>
 
-<%= form_with url: root_path, method: :get do |f| %>
-  <div>
-    <%= f.label :date, "日付" %>
-    <%= f.date_field :date, value: @selected_date %>
+  <%= form_with url: root_path, method: :get, class: "home-form" do |f| %>
+    <div class="home-controls">
+      <label class="home-chip">
+        <span class="home-chip__icon">📅</span>
+        <span class="home-chip__label">日付</span>
+        <%= f.date_field :date, value: @selected_date, class: "home-chip__input" %>
+      </label>
+
+      <% if @gyms.any? %>
+        <label class="home-chip">
+          <span class="home-chip__icon">🏋️</span>
+          <span class="home-chip__label">ジム</span>
+          <%= f.select :gym_id,
+                @gyms.map { |g| [g.name, g.id] },
+                { include_blank: "選択してください" },
+                { selected: @selected_gym_id, class: "home-chip__select", onchange: "this.form.submit()" } %>
+        </label>
+      <% else %>
+        <span class="home-chip home-chip--empty">
+          <span class="home-chip__icon">🏋️</span>
+          <span class="home-chip__label">ジム未登録</span>
+        </span>
+      <% end %>
+
+    </div>
+  <% end %>
+
+  <% if @gyms.none? %>
+    <p class="home-note">
+      <%= link_to "ジムを登録する →", new_gym_path %>
+    </p>
+  <% end %>
+
+  <div class="home-actions">
+    <%= link_to exercises_path, class: "btn-primary btn-block" do %>
+      ▶&nbsp;トレーニング開始
+    <% end %>
+    <%= link_to "履歴を見る", training_sessions_path, class: "btn-secondary btn-block" %>
   </div>
 
-  <% if @gyms.any? %>
-    <div>
-      <%= f.label :gym_id, "ジム" %>
-      <%= f.select :gym_id,
-            @gyms.map { |g| [g.name, g.id] },
-            { include_blank: "選択してください" },
-            selected: @selected_gym_id %>
+  <% if @recent_sessions.any? %>
+    <div class="recent-records">
+      <p class="section-label">直近の記録</p>
+      <div class="recent-cards">
+        <% @recent_sessions.each do |ts| %>
+          <div class="recent-card">
+            <p class="recent-card__name"><%= ts.exercise.name %></p>
+            <% first_set = ts.training_sets.min_by(&:set_number) %>
+            <% if first_set %>
+              <p class="recent-card__detail">
+                <%= first_set.weight %>kg × <%= first_set.reps %>回 × <%= ts.training_sets.count %>set
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <%= f.submit "選択する" %>
-  <% else %>
-    <p>ジムが登録されていません。</p>
-    <%= link_to "ジムを登録する", new_gym_path %>
   <% end %>
-<% end %>
-
-<% if @selected_gym %>
-  <p>選択中：<%= @selected_gym.name %>（<%= @selected_date %>）</p>
-  <%= link_to "マシンを選択する", gym_machines_path(@selected_gym) %>
-<% end %>
-
-<%= link_to "種目一覧", exercises_path %>
-<%= link_to "トレーニングを記録する", new_training_session_path %>
-<%= link_to "記録一覧", training_sessions_path %>
+</div>
