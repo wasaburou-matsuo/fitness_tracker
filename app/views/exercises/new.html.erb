@@ -1,0 +1,25 @@
+<h1>種目を登録</h1>
+
+<%= form_with model: @exercise do |f| %>
+  <% if @exercise.errors.any? %>
+    <ul>
+      <% @exercise.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "種目名" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :body_part, "部位（任意）" %>
+    <%= f.text_field :body_part, placeholder: "例：胸、背中、脚" %>
+  </div>
+
+  <%= f.submit "登録する" %>
+<% end %>
+
+<%= link_to "戻る", root_path %>
