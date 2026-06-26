@@ -1,20 +1,25 @@
-<h1>ジムを登録</h1>
+<div class="card">
+  <%= link_to "戻る", root_path, class: "back-link" %>
+  <h1 class="page-title">ジムを登録</h1>
 
-<%= form_with model: @gym do |f| %>
-  <% if @gym.errors.any? %>
-    <ul>
-      <% @gym.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+  <%= form_with model: @gym do |f| %>
+    <% if @gym.errors.any? %>
+      <div class="flash flash--alert">
+        <ul class="error-list">
+          <% @gym.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, "ジム名" %>
+      <%= f.text_field :name, placeholder: "例：エニタイム渋谷" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "登録する", class: "btn-primary" %>
+    </div>
   <% end %>
-
-  <div>
-    <%= f.label :name, "ジム名" %>
-    <%= f.text_field :name %>
-  </div>
-
-  <%= f.submit "登録する" %>
-<% end %>
-
-<%= link_to "戻る", root_path %>
+</div>

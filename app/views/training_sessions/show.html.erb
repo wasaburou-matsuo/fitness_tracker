@@ -1,22 +1,32 @@
-<h1>記録詳細</h1>
+<div class="card">
+  <%= link_to "戻る", training_sessions_path, class: "back-link" %>
+  <h1 class="page-title">記録詳細</h1>
+  <p class="page-subtitle">
+    <%= l(@training_session.trained_on, format: :long) %>・<%= @training_session.exercise.name %>
+  </p>
 
-<p><strong>日付：</strong><%= @training_session.trained_on %></p>
-<p><strong>種目：</strong><%= @training_session.exercise.name %></p>
-<% if @training_session.machine %>
-  <p><strong>マシン：</strong><%= @training_session.machine.name %></p>
-  <% if @training_session.machine.setting_memo.present? %>
-    <p><strong>マシン設定メモ：</strong><%= @training_session.machine.setting_memo %></p>
+  <% if @training_session.memo.present? %>
+    <div class="form-group">
+      <label class="form-label">メモ</label>
+      <p class="detail-text"><%= @training_session.memo %></p>
+    </div>
   <% end %>
-<% end %>
-<% if @training_session.memo.present? %>
-  <p><strong>メモ：</strong><%= @training_session.memo %></p>
-<% end %>
 
-<h2>セット</h2>
-<ul>
-  <% @training_session.training_sets.order(:set_number).each do |set| %>
-    <li>セット<%= set.set_number %>：<%= set.weight %>kg × <%= set.reps %>回</li>
+  <% if @training_session.machine&.setting_memo.present? %>
+    <div class="machine-memo">
+      <span class="machine-memo__icon">⚠</span>
+      マシン設定メモ<br>
+      <span class="machine-memo__text"><%= @training_session.machine.setting_memo %></span>
+    </div>
   <% end %>
-</ul>
 
-<%= link_to "一覧に戻る", training_sessions_path %>
+  <h2 class="section-title">記録</h2>
+  <div class="sets-list">
+    <% @training_session.training_sets.order(:set_number).each do |set| %>
+      <div class="sets-list__row">
+        <span class="sets-list__label">セット<%= set.set_number %></span>
+        <span class="sets-list__value"><%= set.weight %>kg × <%= set.reps %>回</span>
+      </div>
+    <% end %>
+  </div>
+</div>
