@@ -1,21 +1,29 @@
-<h1>記録一覧</h1>
+<div class="card">
+  <%= link_to "戻る", root_path, class: "back-link" %>
+  <h1 class="page-title">記録一覧</h1>
 
-<% if @training_sessions.any? %>
-  <ul>
-    <% @training_sessions.each do |session| %>
-      <li>
-        <strong><%= session.trained_on %></strong>
-        <%= session.exercise.name %>
-        <% if session.machine %>
-          （<%= session.machine.name %>）
+  <% if @training_sessions.any? %>
+    <% @training_sessions.group_by(&:trained_on).each do |date, sessions| %>
+      <div class="record-group">
+        <p class="record-group__header">
+          <%= l(date, format: :long) %>
+          <% gym_name = sessions.filter_map { |s| s.machine&.gym&.name }.first %>
+          <% if gym_name %>・<%= gym_name %><% end %>
+        </p>
+        <% sessions.each do |ts| %>
+          <%= link_to training_session_path(ts), class: "record-item" do %>
+            <span class="record-item__name"><%= ts.exercise.name %></span>
+            <% first_set = ts.training_sets.min_by(&:set_number) %>
+            <% if first_set %>
+              <span class="record-item__detail">
+                <%= first_set.weight %>kg × <%= first_set.reps %>回 × <%= ts.training_sets.count %>set
+              </span>
+            <% end %>
+          <% end %>
         <% end %>
-        <%= link_to "詳細", training_session_path(session) %>
-      </li>
+      </div>
     <% end %>
-  </ul>
-<% else %>
-  <p>記録がありません。</p>
-<% end %>
-
-<%= link_to "トレーニングを記録する", new_training_session_path %>
-<%= link_to "戻る", root_path %>
+  <% else %>
+    <p class="empty-message">記録がありません。</p>
+  <% end %>
+</div>

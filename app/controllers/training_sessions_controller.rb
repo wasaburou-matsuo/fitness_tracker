@@ -1,7 +1,7 @@
 class TrainingSessionsController < ApplicationController
   def index
     @training_sessions = current_user.training_sessions
-                                     .includes(:exercise, :machine, :training_sets)
+                                     .includes(:exercise, { machine: :gym }, :training_sets)
                                      .order(trained_on: :desc)
   end
 

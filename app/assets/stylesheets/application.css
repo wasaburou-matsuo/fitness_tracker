@@ -567,3 +567,98 @@ textarea {
 .error-list li {
   font-size: 13px;
 }
+
+/* =====================
+   Forms (shared)
+   ===================== */
+.form-actions {
+  margin-top: 24px;
+}
+
+.form-hint {
+  font-size: 11px;
+  color: #888;
+  margin-left: 6px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.detail-text {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* =====================
+   Record list
+   ===================== */
+.record-group {
+  margin-bottom: 20px;
+}
+
+.record-group__header {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 8px;
+}
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  color: #333;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-item:hover {
+  color: #4a90d9;
+  text-decoration: none;
+}
+
+.record-item__name {
+  font-size: 14px;
+  color: #4a90d9;
+}
+
+.record-item__detail {
+  font-size: 13px;
+  color: #555;
+}
+
+/* =====================
+   Record detail
+   ===================== */
+.sets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sets-list__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sets-list__label {
+  font-size: 13px;
+  color: #888;
+  min-width: 60px;
+}
+
+.sets-list__value {
+  font-size: 14px;
+  color: #333;
+}
