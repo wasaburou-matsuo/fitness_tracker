@@ -1,6 +1,13 @@
 ja:
   hello: "こんにちは"
   activerecord:
+    models:
+      user: "ユーザー"
+      gym: "ジム"
+      machine: "マシン"
+      exercise: "種目"
+      training_session: "トレーニング記録"
+      training_set: "セット"
     attributes:
       user:
         name: "名前"
@@ -19,10 +26,20 @@ ja:
         body_part: "部位"
       training_session:
         exercise_id: "種目"
+        exercise: "種目"
         machine_id: "マシン"
+        machine: "マシン"
         trained_on: "日付"
         memo: "メモ"
+        training_sets:
+          weight: "重量"
+          reps: "回数"
+          set_number: "セット番号"
       training_set:
+        set_number: "セット番号"
+        weight: "重量"
+        reps: "回数"
+      training_sets:
         set_number: "セット番号"
         weight: "重量"
         reps: "回数"
