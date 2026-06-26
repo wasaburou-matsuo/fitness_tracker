@@ -1,0 +1,20 @@
+<h1>マシンを選択</h1>
+<p>ジム：<%= @gym.name %></p>
+
+<% if @machines.any? %>
+  <ul>
+    <% @machines.each do |machine| %>
+      <li>
+        <strong><%= machine.name %></strong>
+        <% if machine.setting_memo.present? %>
+          <p><%= machine.setting_memo %></p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>マシンが登録されていません。</p>
+<% end %>
+
+<%= link_to "マシンを登録する", new_gym_machine_path(@gym) %>
+<%= link_to "戻る", root_path %>

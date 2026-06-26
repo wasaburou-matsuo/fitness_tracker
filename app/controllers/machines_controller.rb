@@ -1,6 +1,10 @@
 class MachinesController < ApplicationController
   before_action :set_gym
 
+  def index
+    @machines = @gym.machines
+  end
+
   def new
     @machine = @gym.machines.build
   end

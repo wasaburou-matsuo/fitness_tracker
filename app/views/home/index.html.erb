@@ -23,4 +23,5 @@
 
 <% if @selected_gym %>
   <p>選択中：<%= @selected_gym.name %>（<%= @selected_date %>）</p>
+  <%= link_to "マシンを選択する", gym_machines_path(@selected_gym) %>
 <% end %>
