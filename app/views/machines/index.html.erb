@@ -1,20 +1,25 @@
-<h1>マシンを選択</h1>
-<p>ジム：<%= @gym.name %></p>
+<div class="card">
+  <%= link_to "戻る", exercises_path, class: "back-link" %>
+  <h1 class="page-title">マシンを選択</h1>
+  <p class="page-subtitle"><%= @gym.name %></p>
 
-<% if @machines.any? %>
-  <ul>
-    <% @machines.each do |machine| %>
-      <li>
-        <strong><%= machine.name %></strong>
-        <% if machine.setting_memo.present? %>
-          <p><%= machine.setting_memo %></p>
+  <% if @machines.any? %>
+    <div class="select-list">
+      <% @machines.each do |machine| %>
+        <%= link_to select_gym_machine_path(@gym, machine), class: "select-list__item" do %>
+          <span><%= machine.name %></span>
+          <span class="select-list__arrow">›</span>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>マシンが登録されていません。</p>
-<% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-message">マシンが登録されていません。</p>
+  <% end %>
 
-<%= link_to "マシンを登録する", new_gym_machine_path(@gym) %>
-<%= link_to "戻る", root_path %>
+  <div class="machine-actions">
+    <%= link_to new_gym_machine_path(@gym), class: "btn-add" do %>
+      + マシンを追加
+    <% end %>
+    <%= link_to "マシンなしで進む →", skip_gym_machines_path(@gym), class: "btn-skip" %>
+  </div>
+</div>

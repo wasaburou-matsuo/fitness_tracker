@@ -3,6 +3,16 @@ class ExercisesController < ApplicationController
     @exercises = current_user.exercises.order(:name)
   end
 
+  def select
+    session[:selected_exercise_id] = params[:id]
+    gym = current_user.gyms.find_by(id: session[:selected_gym_id])
+    if gym
+      redirect_to gym_machines_path(gym)
+    else
+      redirect_to new_training_session_path
+    end
+  end
+
   def new
     @exercise = current_user.exercises.build
   end

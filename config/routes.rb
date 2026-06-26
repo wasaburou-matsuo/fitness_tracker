@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :exercises, only: [:index, :new, :create]
+  resources :exercises, only: [:index, :new, :create] do
+    member { get :select }
+  end
   resources :training_sessions, only: [:index, :new, :create, :show]
   resources :gyms, only: [:new, :create] do
-    resources :machines, only: [:index, :new, :create]
+    resources :machines, only: [:index, :new, :create] do
+      member     { get :select }
+      collection { get :skip }
+    end
   end
   root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
