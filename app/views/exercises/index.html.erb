@@ -1,0 +1,19 @@
+<h1>種目一覧</h1>
+
+<% if @exercises.any? %>
+  <ul>
+    <% @exercises.each do |exercise| %>
+      <li>
+        <strong><%= exercise.name %></strong>
+        <% if exercise.body_part.present? %>
+          （<%= exercise.body_part %>）
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>種目が登録されていません。</p>
+<% end %>
+
+<%= link_to "種目を登録する", new_exercise_path %>
+<%= link_to "戻る", root_path %>

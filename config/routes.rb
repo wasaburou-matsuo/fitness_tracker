@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :exercises, only: [:new, :create]
+  resources :exercises, only: [:index, :new, :create]
   resources :gyms, only: [:new, :create] do
     resources :machines, only: [:index, :new, :create]
   end
