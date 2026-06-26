@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :gyms, only: [:new, :create] do
-    resources :machines, only: [:new, :create]
+    resources :machines, only: [:index, :new, :create]
   end
   root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
