@@ -7,7 +7,7 @@
       <label class="home-chip">
         <span class="home-chip__icon">📅</span>
         <span class="home-chip__label">日付</span>
-        <%= f.date_field :date, value: @selected_date, class: "home-chip__input" %>
+        <%= f.date_field :date, value: @selected_date, class: "home-chip__input", onchange: "this.form.submit()" %>
       </label>
 
       <% if @gyms.any? %>
